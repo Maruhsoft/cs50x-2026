@@ -1,0 +1,3 @@
+The listener's audio aura could be characterized using the average energy, valence, and danceability of the 100 songs. A higher average would suggest a more energetic, positive, and danceable listening profile, while lower values would suggest a calmer or more subdued profile.
+
+This method may not accurately represent the listener because averaging the three characteristics treats every song equally and reduces a complex listening history to only three numbers. A better approach could consider how frequently each song was played, the listener's listening time, and clusters or patterns among their most-played songs and artists.

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Trivia</title>
+
+    <style>
+        body {
+            background-color: #f5f7fb;
+            color: #202124;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a73e8;
+            margin-bottom: 40px;
+        }
+
+        .question {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            padding: 25px;
+        }
+
+        .question h2 {
+            font-size: 1.15rem;
+            margin-top: 0;
+        }
+
+        button {
+            background-color: #1a73e8;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            margin: 5px;
+            padding: 10px 16px;
+        }
+
+        button:hover {
+            background-color: #1557b0;
+        }
+
+        button.correct {
+            background-color: #188038;
+        }
+
+        button.incorrect {
+            background-color: #d93025;
+        }
+
+        .feedback {
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .free-response {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        input {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            padding: 10px;
+        }
+
+        #score {
+            background: #202124;
+            border-radius: 8px;
+            color: white;
+            display: none;
+            margin-bottom: 30px;
+            padding: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Trivia Challenge</h1>
+
+        <div id="score"></div>
+
+        <div class="question">
+            <h2>1. What is the capital of France?</h2>
+
+            <button data-correct="false">Madrid</button>
+            <button data-correct="true">Paris</button>
+            <button data-correct="false">Rome</button>
+            <button data-correct="false">Berlin</button>
+
+            <p class="feedback"></p>
+        </div>
+
+        <div class="question">
+            <h2>2. Which planet is known as the Red Planet?</h2>
+
+            <button data-correct="false">Venus</button>
+            <button data-correct="true">Mars</button>
+            <button data-correct="false">Jupiter</button>
+            <button data-correct="false">Mercury</button>
+
+            <p class="feedback"></p>
+        </div>
+
+        <div class="question">
+            <h2>3. What is the largest ocean on Earth?</h2>
+
+            <div class="free-response">
+                <input type="text" placeholder="Enter your answer">
+                <button class="submit-answer">Check Answer</button>
+            </div>
+
+            <p class="feedback"></p>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        let answered = 0;
+
+        const scoreElement = document.querySelector("#score");
+
+        function updateScore() {
+            scoreElement.style.display = "block";
+            scoreElement.textContent =
+                `Score: ${score} / ${answered}`;
+        }
+
+        document.querySelectorAll(".question").forEach(question => {
+            const buttons = question.querySelectorAll(
+                "button[data-correct]"
+            );
+
+            buttons.forEach(button => {
+                button.addEventListener("click", () => {
+                    if (question.dataset.answered === "true") {
+                        return;
+                    }
+
+                    question.dataset.answered = "true";
+                    answered++;
+
+                    const correct = button.dataset.correct === "true";
+                    const feedback = question.querySelector(".feedback");
+
+                    if (correct) {
+                        button.classList.add("correct");
+                        feedback.textContent = "Correct!";
+                        feedback.style.color = "#188038";
+                        score++;
+                    } else {
+                        button.classList.add("incorrect");
+                        feedback.textContent = "Incorrect.";
+                        feedback.style.color = "#d93025";
+                    }
+
+                    updateScore();
+                });
+            });
+
+            const submitButton = question.querySelector(".submit-answer");
+
+            if (submitButton) {
+                submitButton.addEventListener("click", () => {
+                    if (question.dataset.answered === "true") {
+                        return;
+                    }
+
+                    question.dataset.answered = "true";
+                    answered++;
+
+                    const input = question.querySelector("input");
+                    const feedback = question.querySelector(".feedback");
+
+                    if (
+                        input.value.trim().toLowerCase() ===
+                        "pacific ocean"
+                    ) {
+                        feedback.textContent = "Correct!";
+                        feedback.style.color = "#188038";
+                        score++;
+                    } else {
+                        feedback.textContent = "Incorrect.";
+                        feedback.style.color = "#d93025";
+                    }
+
+                    updateScore();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

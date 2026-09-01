@@ -1,0 +1,152 @@
+:root {
+    --primary: #2563eb;
+    --dark: #0f172a;
+    --text: #334155;
+    --light: #f8fafc;
+    --card: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--light);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+}
+
+nav {
+    align-items: center;
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    padding: 20px;
+}
+
+nav a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #bfdbfe;
+}
+
+.hero {
+    background:
+        linear-gradient(
+            135deg,
+            #1e3a8a,
+            #2563eb
+        );
+    color: white;
+    min-height: 75vh;
+}
+
+.hero-content {
+    margin: auto;
+    max-width: 900px;
+    padding: 100px 25px;
+    text-align: center;
+}
+
+.eyebrow {
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 4px;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    line-height: 1.05;
+    margin: 20px 0;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+}
+
+.button,
+button {
+    background: var(--primary);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    padding: 12px 20px;
+    text-decoration: none;
+}
+
+.button {
+    background: white;
+    color: var(--primary);
+    margin-top: 20px;
+}
+
+.button:hover {
+    background: #dbeafe;
+}
+
+.section {
+    margin: auto;
+    max-width: 1000px;
+    padding: 80px 25px;
+}
+
+.section h2 {
+    color: var(--dark);
+    font-size: 2rem;
+    margin-bottom: 25px;
+}
+
+.cards {
+    display: grid;
+    gap: 25px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.card {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.08);
+    padding: 25px;
+}
+
+.card h3 {
+    color: var(--primary);
+}
+
+.contact {
+    text-align: center;
+}
+
+footer {
+    background: var(--dark);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    nav {
+        flex-wrap: wrap;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-content {
+        padding: 70px 20px;
+    }
+}
