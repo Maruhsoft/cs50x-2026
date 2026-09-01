@@ -1,0 +1,43 @@
+# Compiled object files
+*.o
+
+# Compiled executables
+hello
+mario
+cash
+credit
+readability
+caesar
+substitution
+scrabble
+plurality
+runoff
+tideman
+sort
+filter
+recover
+speller
+volume
+
+# Python
+__pycache__/
+*.py[cod]
+*.venv
+venv/
+.venv/
+
+# Environment / secrets
+.env
+.env.*
+
+# SQLite temporary files
+*.db-journal
+*.sqlite-journal
+
+# Editor / IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
