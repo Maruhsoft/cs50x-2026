@@ -13,7 +13,13 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
             int green = image[i][j].rgbtGreen;
             int blue = image[i][j].rgbtBlue;
             int avg = (int) round((red + green + blue) / 3.0);
-            image[i][j].rgbtRed = image[i][j].rgbtGreen = image[i][j].rgbtBlue = (BYTE) (avg > 255 ? 255 : avg);
+            if (avg > 255)
+            {
+                avg = 255;
+            }
+            image[i][j].rgbtRed = (BYTE) avg;
+            image[i][j].rgbtGreen = (BYTE) avg;
+            image[i][j].rgbtBlue = (BYTE) avg;
         }
     }
 }
@@ -33,9 +39,18 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
             int sepiaGreen = (int) round(0.349 * red + 0.686 * green + 0.168 * blue);
             int sepiaBlue = (int) round(0.272 * red + 0.534 * green + 0.131 * blue);
 
-            if (sepiaRed > 255) sepiaRed = 255;
-            if (sepiaGreen > 255) sepiaGreen = 255;
-            if (sepiaBlue > 255) sepiaBlue = 255;
+            if (sepiaRed > 255)
+            {
+                sepiaRed = 255;
+            }
+            if (sepiaGreen > 255)
+            {
+                sepiaGreen = 255;
+            }
+            if (sepiaBlue > 255)
+            {
+                sepiaBlue = 255;
+            }
 
             image[i][j].rgbtRed = (BYTE) sepiaRed;
             image[i][j].rgbtGreen = (BYTE) sepiaGreen;
@@ -61,18 +76,19 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 // Blur image
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
-    // Create a copy of the image to read original values
-    RGBTRIPLE(*copy)[width] = calloc(height, width * sizeof(RGBTRIPLE));
-    if (copy == NULL)
+    // Allocate temporary copy
+    RGBTRIPLE *temp = malloc(sizeof(RGBTRIPLE) * height * width);
+    if (temp == NULL)
     {
         return;
     }
 
+    // Copy pixels into 1D buffer for easier indexing
     for (int i = 0; i < height; i++)
     {
         for (int j = 0; j < width; j++)
         {
-            copy[i][j] = image[i][j];
+            temp[i * width + j] = image[i][j];
         }
     }
 
@@ -90,19 +106,20 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                     int nj = j + dj;
                     if (ni >= 0 && ni < height && nj >= 0 && nj < width)
                     {
-                        redSum += copy[ni][nj].rgbtRed;
-                        greenSum += copy[ni][nj].rgbtGreen;
-                        blueSum += copy[ni][nj].rgbtBlue;
+                        RGBTRIPLE p = temp[ni * width + nj];
+                        redSum += p.rgbtRed;
+                        greenSum += p.rgbtGreen;
+                        blueSum += p.rgbtBlue;
                         count++;
                     }
                 }
             }
 
-            image[i][j].rgbtRed = (BYTE) (int) round((float) redSum / count);
-            image[i][j].rgbtGreen = (BYTE) (int) round((float) greenSum / count);
-            image[i][j].rgbtBlue = (BYTE) (int) round((float) blueSum / count);
+            image[i][j].rgbtRed = (BYTE) round((float) redSum / count);
+            image[i][j].rgbtGreen = (BYTE) round((float) greenSum / count);
+            image[i][j].rgbtBlue = (BYTE) round((float) blueSum / count);
         }
     }
 
-    free(copy);
+    free(temp);
 }
