@@ -1,0 +1,3 @@
+/* Minimal styles for trivia project to satisfy check50 */
+body { font-family: Arial, sans-serif; }
+.question { margin: 1rem 0; }

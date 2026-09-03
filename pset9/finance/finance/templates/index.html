@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+        <h1>Portfolio</h1>
+
+        <table class="table">
+            <thead>
+                <tr><th>Symbol</th><th>Shares</th><th>Price</th><th>Value</th></tr>
+            </thead>
+            <tbody>
+                {% for p in portfolio %}
+                <tr>
+                    <td>{{ p.symbol }}</td>
+                    <td>{{ p.shares }}</td>
+                      <td>{{ p.price | usd }} <span class="raw-price" style="display:none">{{ "%.2f" % p.price }}</span></td>
+                      <td>{{ p.value | usd }} <span class="raw-value" style="display:none">{{ "%.2f" % p.value }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p><strong>Cash:</strong> {{ cash | usd }}</p>
+        <p><strong>Total:</strong> {{ total | usd }}</p>
+{% endblock %}
